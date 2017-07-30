@@ -11,28 +11,45 @@ namespace TheSilverNumber
 		private int[] numberList;
 		private int targetNumber;
 
-		AlogrithmTwo(int[] numbs, int target) {
+		public AlogrithmTwo(int[] numbs, int target) {
 			numberList = numbs;
 			targetNumber = target;
 		}
 
 		public void FindTheSolution() {
-			int[] solutionArray = { };
-			int currentPositionSolution = 0;
-
-
+			int[] solutionArray = new int[numberList.Length];
 			for (int j = 0; j < solutionArray.Length; j++) {
 				int tempstore;
 				tempstore = numberList[j];
-				for (int i = j + 1; i < numberList.Length; i++) {
-					solutionArray[j] = numberList[i];
+				if (j == 0) {
+					solutionArray[j] = numberList[j];
+					if (solutionArray[j] == targetNumber) {
+						WriteArray(solutionArray);
+					}
+				}
+				bool first = false;
+				bool Last = false;
+				for (int i = j ; i < numberList.Length; ) {
+					i++;
+					if (i == 1) {
+						first = true;
+					}
+					else if (i == numberList.Length) {
+						Last = true;
+					}
+					if (first == true) { solutionArray[j] = numberList[0]; }
+					else if (Last == true) { solutionArray[j] = numberList[i-1]; }
+					else { solutionArray[j] = numberList[i]; }
 					int sum = 0;
+					//requires another sumation loop to iterate through all combinations of existing arrary elements in solutionarray
 					for (int currentPositionProblem = 0; currentPositionProblem < solutionArray.Length; currentPositionProblem++) {
 						sum += solutionArray[currentPositionProblem];
-						if (sum == targetNumber) {
-							//Console.WriteLine("success");
+						/*if (sum == targetNumber) {
 							WriteArray(solutionArray);
-						}
+						}*/
+					}
+					if (sum == targetNumber) {
+						WriteArray(solutionArray);
 					}
 				}
 				solutionArray[j] = tempstore;
@@ -41,11 +58,14 @@ namespace TheSilverNumber
 
 		private void WriteArray(int[] toBeWritten) {
 			StringBuilder builder = new StringBuilder();
-			for (int i = 0; i <= toBeWritten.Length; i++) {
-				builder.Append(" ").Append(toBeWritten[i].ToString()).Append(" ");
+			for (int i = 0; i < toBeWritten.Length; i++) {
+				if (toBeWritten[i] != 0) {
+					builder.Append(" ").Append(toBeWritten[i].ToString()).Append(" ");
+				}
 			}
 			builder.AppendLine();
-			Console.WriteLine(builder);
+			Console.WriteLine(builder.ToString());
+			builder.Clear();
 		}
 	}
 }
