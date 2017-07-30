@@ -41,7 +41,10 @@ namespace TheSilverNumber
 					else if (Last == true) { solutionArray[j] = numberList[i-1]; }
 					else { solutionArray[j] = numberList[i]; }
 					int sum = 0;
-					//requires another sumation loop to iterate through all combinations of existing arrary elements in solutionarray
+					/*requires another summation loop to iterate through all combinations of existing array elements in solutionarray
+					* by removing existing elements to check for validity. Need to iterate through previous elemetns from any current
+					* element.
+					*/
 					for (int currentPositionProblem = 0; currentPositionProblem < solutionArray.Length; currentPositionProblem++) {
 						sum += solutionArray[currentPositionProblem];
 						/*if (sum == targetNumber) {
